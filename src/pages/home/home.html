@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>
+      HuskMig!
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let item of huskMigList, let i = index">
+      {{huskMigList[i]}}
+    </ion-item>
+  </ion-list>
+</ion-content>
