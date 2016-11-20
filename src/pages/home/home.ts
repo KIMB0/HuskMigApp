@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -13,14 +13,43 @@ export class HomePage {
 
 
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
+
+  }
 
   ionViewDidEnter(){
     if (!this.huskMigList){
         this.huskMigList = [];
     }
-    this.huskMigList.push('Gør rent', 'Købe mælk', 'Op og træne', 'Lav lektier')
+    console.log('Page loaded!!!', this.huskMigList)
+  }
 
-    console.log('Page loaded!', this.huskMigList)
+  openAddAlert() {
+    console.log('Button pressed!')
+    let promt = this.alertCtrl.create({
+      title: 'Tilføj en note:',
+      inputs: [
+        {
+          name: 'title',
+          placeholder: 'Note'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuller',
+          handler: data => {
+            console.log('Annuller clicked');
+        }
+        },
+        {
+          text: 'Tilføj',
+          handler: data => {
+            this.huskMigList.push(data.title)
+            console.log('Tilføj clicked')
+          }
+        }
+    ]
+    });
+    promt.present();
   }
 }
