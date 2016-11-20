@@ -21,15 +21,34 @@ export class HomePage {
     if (!this.huskMigList){
         this.huskMigList = [];
     }
-    this.huskMigList.push('Gør rent', 'Købe mælk', 'Op og træne', 'Lav lektier')
-
     console.log('Page loaded!!!', this.huskMigList)
   }
+
   openAddAlert() {
     console.log('Button pressed!')
     let promt = this.alertCtrl.create({
-      title: 'Tilføj en note!',
-      message: 'Her kan du tilføje en note:'
+      title: 'Tilføj en note:',
+      inputs: [
+        {
+          name: 'title',
+          placeholder: 'Note'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuller',
+          handler: data => {
+            console.log('Annuller clicked');
+        }
+        },
+        {
+          text: 'Tilføj',
+          handler: data => {
+            this.huskMigList.push(data.title)
+            console.log('Tilføj clicked')
+          }
+        }
+    ]
     });
     promt.present();
   }
