@@ -8,44 +8,41 @@ import { NavController, AlertController } from 'ionic-angular';
 })
 export class HomePage {
 
-  public huskMigItem: string;
   public huskMigList: Array<string>;
 
 
-
   constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
-
   }
 
   ionViewDidEnter(){
-    if (!this.huskMigList){
-        this.huskMigList = [];
+    this.huskMigList = JSON.parse(localStorage.getItem("notes"));
+    if(!this.huskMigList){
+      this.huskMigList = [];
     }
-    console.log('Page loaded!!!', this.huskMigList)
   }
 
   openAddAlert() {
-    console.log('Button pressed!')
     let promt = this.alertCtrl.create({
       title: 'Tilføj en note:',
       inputs: [
         {
           name: 'title',
-          placeholder: 'Note'
+          placeholder: 'Skriv en note her...'
         },
       ],
       buttons: [
         {
           text: 'Annuller',
           handler: data => {
-            console.log('Annuller clicked');
         }
         },
         {
           text: 'Tilføj',
           handler: data => {
-            this.huskMigList.push(data.title)
-            console.log('Tilføj clicked')
+            if(data.title != ""){
+              this.huskMigList.push(data.title);
+              localStorage.setItem("notes", JSON.stringify(this.huskMigList));
+            }
           }
         }
     ]
