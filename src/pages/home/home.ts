@@ -49,4 +49,8 @@ export class HomePage {
     });
     promt.present();
   }
+  deleteNote(index: number){
+    this.huskMigList.splice(index, 1);
+    localStorage.setItem("notes", JSON.stringify(this.huskMigList));
+  }
 }
