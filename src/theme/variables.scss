@@ -43,7 +43,18 @@ $colors: (
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-$list-md-border-color: black;
+$list-md-border-color: lightgrey;
+$modal-md-background-color:#ff6600;
+
+$alert-md-background-color:#ff6600;
+$alert-md-box-shadow-color:black;
+$alert-md-head-text-align:center;
+$alert-md-input-border-color:white;
+$alert-md-input-text-color:white;
+$alert-md-input-border-color-focused:white;
+$alert-md-button-text-color: white;
+$alert-md-message-font-size:24px;
+$alert-md-message-text-color:white;
 
 
 

@@ -23,7 +23,7 @@ export class HomePage {
 
   openAddAlert() {
     let promt = this.alertCtrl.create({
-      title: 'Tilføj en note:',
+      message: 'Tilføj en note:',
       inputs: [
         {
           name: 'title',
