@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -11,9 +11,10 @@ export class HomePage {
   public huskMigList: Array<string>;
 
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController) {
   }
 
+  //Dette sker når view er entered
   ionViewDidEnter(){
     this.huskMigList = JSON.parse(localStorage.getItem("notes"));
     if(!this.huskMigList){
@@ -21,6 +22,7 @@ export class HomePage {
     }
   }
 
+  //Add-alert hvor man kan oprette en note//
   openAddAlert() {
     let promt = this.alertCtrl.create({
       message: 'Tilføj en note:',
@@ -49,8 +51,22 @@ export class HomePage {
     });
     promt.present();
   }
+
+  //Dette er delete note metoden
   deleteNote(index: number){
     this.huskMigList.splice(index, 1);
     localStorage.setItem("notes", JSON.stringify(this.huskMigList));
+  }
+
+  openMoreActionSheet(){
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Mere',
+      buttons[
+        {
+          text: 'Destructive',
+          role: 'destructive'
+        }
+      ]
+    })
   }
 }
