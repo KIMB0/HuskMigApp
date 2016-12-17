@@ -59,14 +59,27 @@ export class HomePage {
   }
 
   openMoreActionSheet(){
+    console.log('Test')
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Mere',
-      buttons[
+      buttons: [
         {
           text: 'Destructive',
-          role: 'destructive'
+          role: 'destructive',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Anuller',
+          icon: 'md-close',
+          role: 'cancel',
+          handler: () => {
         }
+      }
       ]
-    })
+    });
+
+    actionSheet.present();
   }
 }
