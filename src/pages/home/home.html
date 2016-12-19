@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color=appOrange>
     <ion-title text-center>
-      <b class="appFont">HuskMig! <ion-icon name="md-clipboard"></ion-icon></b>
+      <b class="appFont">HuskMig!<ion-icon name="md-clipboard"></ion-icon></b>
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="openAddAlert()">
@@ -12,8 +12,8 @@
 </ion-header>
 
 <ion-content padding>
+  <h2 color=emptyList *ngIf="[huskMigList] == 0">Din <b>HuskMig</b>liste er tom! Tryk på + for at tilføje en note.</h2>
   <ion-list>
-    <h2 color=emptyList *ngIf="huskMigList == 0">Din <b>HuskMig</b>liste er tom! Tryk på + for at tilføje en note.</h2>
     <ion-item-sliding *ngFor="let item of huskMigList, let i = index">
       <ion-item>
         <h2>{{ item }}</h2>
@@ -27,3 +27,13 @@
     </ion-item-sliding>
   </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color=appOrange>
+    <ion-buttons end>
+    <button ion-button icon-only (click)="openMoreActionSheet()">
+      <p>Mere</p><ion-icon name ="md-more"></ion-icon>
+    </button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
