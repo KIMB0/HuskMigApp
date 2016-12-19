@@ -84,7 +84,8 @@ export class HomePage {
 
     actionSheet.present();
   }
-
+//Denne function gør at vi kan bruge Android native, til at sende array som SMS.
+//join-functionen gør at vi joine noget på hver string i arrayet. Her er det en ny linje.
   sendSMS(){
     var options={
       replaceLineBreaks: false,
@@ -92,11 +93,10 @@ export class HomePage {
         intent: 'INTENT'
       }
     }
-    SMS.send('', 'Test', options)
+    SMS.send('', '- ' + this.huskMigList.join(',\n- ').toString(), options)
     .then(()=> {
-      alert("succes");
     },()=>{
-      alert("failed");
+      alert("Noget gik galt. Prøv igen!");
     });
   }
 }
