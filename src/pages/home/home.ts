@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
+import { NavController, AlertController, ActionSheetController, ToastController } from 'ionic-angular';
 
 import { SMS } from 'ionic-native';
 
@@ -12,7 +12,7 @@ export class HomePage {
   public huskMigList: Array<string>;
 
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, private toastCtrl: ToastController) {
   }
 
 //Dette sker når view er entered
@@ -53,10 +53,21 @@ export class HomePage {
     promt.present();
   }
 
+//Dette er en Toast der bliver vist, når brugeren sletter en note
+  presentDeleteToast(){
+    let toast = this.toastCtrl.create({
+      message: 'Noten er slettet',
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
 //Dette er delete note metoden
   deleteNote(index: number){
     this.huskMigList.splice(index, 1);
     localStorage.setItem("notes", JSON.stringify(this.huskMigList));
+    this.presentDeleteToast()
   }
 
 //Dette er ActionSheet der bliver vist
