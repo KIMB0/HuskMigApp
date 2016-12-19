@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-
 import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
+
+import { SMS } from 'ionic-native';
 
 @Component({
   selector: 'page-home',
@@ -14,7 +15,7 @@ export class HomePage {
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController) {
   }
 
-  //Dette sker når view er entered
+//Dette sker når view er entered
   ionViewDidEnter(){
     this.huskMigList = JSON.parse(localStorage.getItem("notes"));
     if(!this.huskMigList){
@@ -22,7 +23,7 @@ export class HomePage {
     }
   }
 
-  //Add-alert hvor man kan oprette en note//
+//Add-alert hvor man kan oprette en note//
   openAddAlert() {
     let promt = this.alertCtrl.create({
       message: 'Tilføj en note:',
@@ -52,26 +53,27 @@ export class HomePage {
     promt.present();
   }
 
-  //Dette er delete note metoden
+//Dette er delete note metoden
   deleteNote(index: number){
     this.huskMigList.splice(index, 1);
     localStorage.setItem("notes", JSON.stringify(this.huskMigList));
   }
 
+//Dette er ActionSheet der bliver vist
   openMoreActionSheet(){
-    console.log('Test')
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Mere',
       buttons: [
         {
-          text: 'Destructive',
+          text: 'Send som SMS',
+          icon: 'md-text',
           role: 'destructive',
           handler: () => {
-
+            this.sendSMS()
           }
         },
         {
-          text: 'Anuller',
+          text: 'Annuller',
           icon: 'md-close',
           role: 'cancel',
           handler: () => {
@@ -81,5 +83,20 @@ export class HomePage {
     });
 
     actionSheet.present();
+  }
+
+  sendSMS(){
+    var options={
+      replaceLineBreaks: false,
+      android: {
+        intent: 'INTENT'
+      }
+    }
+    SMS.send('', 'Test', options)
+    .then(()=> {
+      alert("succes");
+    },()=>{
+      alert("failed");
+    });
   }
 }
