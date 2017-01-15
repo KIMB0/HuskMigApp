@@ -6,7 +6,7 @@
   </ion-header>
   <ion-content>
     <ion-list *ngFor="let item of huskMigList, let i = index">
-      <ion-item menuClose>
+      <ion-item menuClose (click)="mainListIndex(i)">
         <h2> {{ item.name }} </h2>
       </ion-item>
     </ion-list>
@@ -31,11 +31,11 @@
 </ion-header>
 
 <ion-content padding>
-  <h2 color=emptyList *ngIf="[huskMigList] == 0">Din <b>HuskMig</b>liste er tom! Tryk på + for at tilføje en note.</h2>
+  <h2 color=emptyList *ngIf="[selectedList] == 0">Din <b>HuskMig</b>liste er tom! Tryk på + for at tilføje en note.</h2>
   <ion-list>
-    <ion-item-sliding *ngFor="let item of huskMigList, let i = index">
+    <ion-item-sliding *ngFor="let item of selectedList">
       <ion-item>
-        <h2>{{ item }}</h2>
+        <h2>{{ item.note }}</h2>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button color="danger" (click)="deleteNote(i)">

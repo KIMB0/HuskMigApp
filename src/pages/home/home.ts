@@ -10,6 +10,7 @@ import { SMS } from 'ionic-native';
 export class HomePage {
 
   huskMigList: any;
+  selectedList: any;
 
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, private toastCtrl: ToastController) {
@@ -88,6 +89,9 @@ export class HomePage {
     ]
     });
     promt.present();
+  }
+  mainListIndex(SelectedIndex){
+    this.selectedList = this.huskMigList[SelectedIndex].notes
   }
 
 //Dette er en Toast der bliver vist, når brugeren sletter en note
