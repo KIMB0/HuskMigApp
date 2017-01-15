@@ -84,6 +84,14 @@ export class HomePage {
           }
         },
         {
+          text: 'Sorter liste alfabetisk',
+          icon: 'md-paper',
+          role: 'destructive',
+          handler: () => {
+            this.sortList()
+          }
+        },
+        {
           text: 'Annuller',
           icon: 'md-close',
           role: 'cancel',
@@ -95,6 +103,7 @@ export class HomePage {
 
     actionSheet.present();
   }
+
 //Denne function gør at vi kan bruge Android native, til at sende array som SMS.
 //join-functionen gør at vi joine noget på hver string i arrayet. Her er det en ny linje.
   sendSMS(){
@@ -109,5 +118,10 @@ export class HomePage {
     },()=>{
       alert("Noget gik galt. Prøv igen!");
     });
+  }
+
+  //Denne lille function, gør at man kan sorter listen efter alfabetisk orden
+  sortList(){
+    this.huskMigList.sort()
   }
 }
