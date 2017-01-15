@@ -5,12 +5,12 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-list>
+    <ion-list *ngFor="let item of huskMigList, let i = index">
       <ion-item menuClose>
-        <h2></h2>
+        <h2> {{ item.name }} </h2>
       </ion-item>
     </ion-list>
-    <button bottom ion-button block clear color=appOrange>+ Tilføj liste</button>
+    <button bottom ion-button block clear color=appOrange (click)="openAddListAlert()">+ Tilføj liste</button>
   </ion-content>
 </ion-menu>
 

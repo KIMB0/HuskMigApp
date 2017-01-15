@@ -9,7 +9,7 @@ import { SMS } from 'ionic-native';
 })
 export class HomePage {
 
-  public huskMigList: Array<string>;
+  huskMigList: any;
 
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, private toastCtrl: ToastController) {
@@ -19,7 +19,12 @@ export class HomePage {
   ionViewDidEnter(){
     this.huskMigList = JSON.parse(localStorage.getItem("notes"));
     if(!this.huskMigList){
-      this.huskMigList = [];
+      this.huskMigList = [        {
+                name: "Test listen",
+                notes: [
+                        {note: "Mælk"}
+                       ]
+              }];
     }
   }
 
@@ -45,6 +50,38 @@ export class HomePage {
             if(data.title != ""){
               this.huskMigList.push(data.title);
               localStorage.setItem("notes", JSON.stringify(this.huskMigList));
+            }
+          }
+        }
+    ]
+    });
+    promt.present();
+  }
+
+  openAddListAlert() {
+    let promt = this.alertCtrl.create({
+      message: 'Tilføj en liste:',
+      inputs: [
+        {
+          name: 'title',
+          placeholder: 'Skriv navnet på listen her'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuller',
+          handler: data => {
+        }
+        },
+        {
+          text: 'Tilføj',
+          handler: data => {
+            if(data.title != ""){
+              this.huskMigList.push({
+                        name: data.title,
+                        notes: [
+                               ]});
+                               localStorage.setItem("notes", JSON.stringify(this.huskMigList));
             }
           }
         }
