@@ -1,4 +1,4 @@
-<ion-menu [content]="content">
+<ion-menu [content]="mycontent">
   <ion-header>
     <ion-toolbar color=appOrange>
       <ion-title>Dine lister</ion-title>
@@ -13,6 +13,8 @@
     <button bottom ion-button block clear color=appOrange (click)="openAddListAlert()">+ Tilføj liste</button>
   </ion-content>
 </ion-menu>
+<ion-nav #mycontent [root]="rootPage"></ion-nav>
+
 
 <ion-header >
   <ion-navbar color=appOrange>
@@ -33,7 +35,7 @@
 <ion-content padding>
   <h2 color=emptyList *ngIf="[selectedList] == 0">Din <b>HuskMig</b>liste er tom! Tryk på + for at tilføje en note.</h2>
   <ion-list>
-    <ion-item-sliding *ngFor="let item of selectedList">
+    <ion-item-sliding *ngFor="let item of selectedList, let i = index">
       <ion-item>
         <h2>{{ item.note }}</h2>
       </ion-item>
@@ -56,6 +58,3 @@
   </ion-buttons>
   </ion-toolbar>
 </ion-footer>
-
-
-<ion-nav id="nav" #content [root]="rootPage"></ion-nav>
