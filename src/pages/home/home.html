@@ -37,7 +37,7 @@
   <ion-list>
     <ion-item-sliding *ngFor="let item of selectedList, let i = index">
       <ion-item>
-        <h2>{{ item.note }}</h2>
+        <h2>{{ item }}</h2>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button color="danger" (click)="deleteNote(i)">

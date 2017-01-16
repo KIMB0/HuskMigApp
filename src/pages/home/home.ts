@@ -20,11 +20,14 @@ export class HomePage {
 //Dette sker når view er entered
   ionViewDidEnter(){
     this.huskMigList = JSON.parse(localStorage.getItem("notes"));
+
+  // Angiver at der skal blive vis plads 0 i arrayet når appen er entered
+    this.selectedList = this.huskMigList[0].notes
     if(!this.huskMigList){
       this.huskMigList = [        {
-                name: "Test listen",
+                name: "",
                 notes: [
-                        {note: "Mælkk"}
+                        {note: ""}
                        ]
               }];
     }
@@ -50,7 +53,7 @@ export class HomePage {
           text: 'Tilføj',
           handler: data => {
             if(data.title != ""){
-              this.selectedList.push({note: data.title});
+              this.selectedList.push(data.title);
               localStorage.setItem("notes", JSON.stringify(this.huskMigList));
             }
           }
@@ -156,7 +159,6 @@ export class HomePage {
         intent: 'INTENT'
       }
     }
-    JSON.stringify([this.selectedList])
     SMS.send('', '- ' + this.selectedList.join(',\n- ').toString(), options)
     .then(()=> {
     },()=>{
