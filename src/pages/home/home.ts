@@ -9,8 +9,10 @@ import { SMS } from 'ionic-native';
 })
 export class HomePage {
 
-  public huskMigList: Array<string>;
-
+  huskMigList: any;
+  selectedList: any;
+  selectedIndex: any;
+  rootPage;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, private toastCtrl: ToastController) {
   }
@@ -18,8 +20,16 @@ export class HomePage {
 //Dette sker når view er entered
   ionViewDidEnter(){
     this.huskMigList = JSON.parse(localStorage.getItem("notes"));
+
+  // Angiver at der skal blive vis plads 0 i arrayet når appen er entered
+    this.selectedList = this.huskMigList[0].notes
     if(!this.huskMigList){
-      this.huskMigList = [];
+      this.huskMigList = [        {
+                name: "",
+                notes: [
+                        {note: ""}
+                       ]
+              }];
     }
   }
 
@@ -43,7 +53,7 @@ export class HomePage {
           text: 'Tilføj',
           handler: data => {
             if(data.title != ""){
-              this.huskMigList.push(data.title);
+              this.selectedList.push(data.title);
               localStorage.setItem("notes", JSON.stringify(this.huskMigList));
             }
           }
@@ -51,6 +61,42 @@ export class HomePage {
     ]
     });
     promt.present();
+  }
+
+  openAddListAlert() {
+    let promt = this.alertCtrl.create({
+      message: 'Tilføj en liste:',
+      inputs: [
+        {
+          name: 'title',
+          placeholder: 'Skriv navnet på listen her'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuller',
+          handler: data => {
+        }
+        },
+        {
+          text: 'Tilføj',
+          handler: data => {
+            if(data.title != ""){
+              this.huskMigList.push({
+                        name: data.title,
+                        notes: [
+                               ]});
+                               localStorage.setItem("notes", JSON.stringify(this.huskMigList));
+            }
+          }
+        }
+    ]
+    });
+    promt.present();
+  }
+  mainListIndex(SelectedIndex){
+    this.selectedIndex = SelectedIndex
+    this.selectedList = this.huskMigList[SelectedIndex].notes
   }
 
 //Dette er en Toast der bliver vist, når brugeren sletter en note
@@ -65,9 +111,13 @@ export class HomePage {
 
 //Dette er delete note metoden
   deleteNote(index: number){
-    this.huskMigList.splice(index, 1);
+    this.selectedList.splice(index, 1);
     localStorage.setItem("notes", JSON.stringify(this.huskMigList));
     this.presentDeleteToast()
+  }
+  deleteList(index: number){
+    this.huskMigList.splice(index, 1) + this.selectedList.splice(0);
+    localStorage.setItem("notes", JSON.stringify(this.huskMigList));
   }
 
 //Dette er ActionSheet der bliver vist
@@ -113,15 +163,16 @@ export class HomePage {
         intent: 'INTENT'
       }
     }
-    SMS.send('', '- ' + this.huskMigList.join(',\n- ').toString(), options)
+    SMS.send('', '- ' + this.selectedList.join(',\n- ').toString(), options)
     .then(()=> {
     },()=>{
       alert("Noget gik galt. Prøv igen!");
     });
   }
 
+
   //Denne lille function, gør at man kan sorter listen efter alfabetisk orden
   sortList(){
-    this.huskMigList.sort()
+    this.selectedList.sort()
   }
 }

@@ -1,18 +1,34 @@
-<ion-menu [content]="content">
+<ion-menu [content]="mycontent">
   <ion-header>
     <ion-toolbar color=appOrange>
       <ion-title>Dine lister</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-list>
-      <ion-item menuClose>
-        <h2></h2>
-      </ion-item>
+    <ion-list no-lines>
+      <div *ngFor="let item of huskMigList, let i = index">
+        <ion-card>
+          <ion-row>
+            <ion-col align="left">
+              <ion-item menuClose (click)="mainListIndex(i)">
+                <h2> {{ item.name }} </h2>
+              </ion-item>
+            </ion-col>
+            <ion-col align="right">
+              <button ion-button icon-right clear small (click)="deleteList(i)">
+                  <div><font size="1">Slet</font></div>
+                  <ion-icon name="delete"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </div>
     </ion-list>
-    <button bottom ion-button block clear color=appOrange>+ Tilføj liste</button>
+    <button bottom ion-button block clear color=appOrange (click)="openAddListAlert()">+ Tilføj liste</button>
   </ion-content>
 </ion-menu>
+<ion-nav #mycontent [root]="rootPage"></ion-nav>
+
 
 <ion-header >
   <ion-navbar color=appOrange>
@@ -31,9 +47,9 @@
 </ion-header>
 
 <ion-content padding>
-  <h2 color=emptyList *ngIf="[huskMigList] == 0">Din <b>HuskMig</b>liste er tom! Tryk på + for at tilføje en note.</h2>
+  <h2 color=emptyList *ngIf="[selectedList] == 0">Din <b>HuskMig</b>liste er tom! Tryk på + for at tilføje en note.</h2>
   <ion-list>
-    <ion-item-sliding *ngFor="let item of huskMigList, let i = index">
+    <ion-item-sliding *ngFor="let item of selectedList, let i = index">
       <ion-item>
         <h2>{{ item }}</h2>
       </ion-item>
@@ -56,6 +72,3 @@
   </ion-buttons>
   </ion-toolbar>
 </ion-footer>
-
-
-<ion-nav id="nav" #content [root]="rootPage"></ion-nav>
