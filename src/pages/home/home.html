@@ -5,10 +5,24 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-list *ngFor="let item of huskMigList, let i = index">
-      <ion-item menuClose (click)="mainListIndex(i)">
-        <h2> {{ item.name }} </h2>
-      </ion-item>
+    <ion-list no-lines>
+      <div *ngFor="let item of huskMigList, let i = index">
+        <ion-card>
+          <ion-row>
+            <ion-col align="left">
+              <ion-item menuClose (click)="mainListIndex(i)">
+                <h2> {{ item.name }} </h2>
+              </ion-item>
+            </ion-col>
+            <ion-col align="right">
+              <button ion-button icon-right clear small (click)="deleteList(i)">
+                  <div><font size="1">Slet</font></div>
+                  <ion-icon name="delete"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </div>
     </ion-list>
     <button bottom ion-button block clear color=appOrange (click)="openAddListAlert()">+ Tilføj liste</button>
   </ion-content>

@@ -115,6 +115,10 @@ export class HomePage {
     localStorage.setItem("notes", JSON.stringify(this.huskMigList));
     this.presentDeleteToast()
   }
+  deleteList(index: number){
+    this.huskMigList.splice(index, 1) + this.selectedList.splice(0);
+    localStorage.setItem("notes", JSON.stringify(this.huskMigList));
+  }
 
 //Dette er ActionSheet der bliver vist
   openMoreActionSheet(){
