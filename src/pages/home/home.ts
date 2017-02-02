@@ -24,12 +24,8 @@ export class HomePage {
   // Angiver at der skal blive vis plads 0 i arrayet når appen er entered
     this.selectedList = this.huskMigList[0].notes
     if(!this.huskMigList){
-      this.huskMigList = [        {
-                name: "",
-                notes: [
-                        {note: ""}
-                       ]
-              }];
+      this.huskMigList = [];
+      this.selectedList = [];
     }
   }
 
