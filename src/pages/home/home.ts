@@ -188,13 +188,18 @@ export class HomePage {
     SMS.send('', '- ' + this.selectedList.join(',\n- ').toString(), options)
     .then(()=> {
     },()=>{
-      alert("Noget gik galt. Prøv igen!");
+      this.noListErrorAlert("Noget gik galt. Prøv igen!");
     });
   }
 
 
   //Denne lille function, gør at man kan sorter listen efter alfabetisk orden
   sortList(){
+    if(this.selectedList == 0 || this.huskMigList == 0){
+      this.noListErrorAlert("Der er ingen noter at sortere!")
+    }
+    else{
     this.selectedList.sort()
+    }
   }
 }
