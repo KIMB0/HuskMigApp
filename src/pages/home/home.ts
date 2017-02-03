@@ -78,11 +78,21 @@ export class HomePage {
           text: 'Tilføj',
           handler: data => {
             if(data.title != ""){
-              this.huskMigList.push({
+              //Denne if tjekker om der er en huskMigList. Hvis der er ikke er, skal den pushe data til listen og derefter sætte selectedList
+              //til huskMigList[0].notes plads. Hvis else, så skal den bare pushe til data huskMigList. 
+              if(this.huskMigList == 0){
+                  this.huskMigList.push({
                         name: data.title,
-                        notes: [
-                               ]});
-                               localStorage.setItem("notes", JSON.stringify(this.huskMigList));
+                        notes: []
+                      });
+                      this.selectedList = this.huskMigList[0].notes
+                                }
+              else{this.huskMigList.push({
+                        name: data.title,
+                        notes: []
+                      });
+                                }
+            localStorage.setItem("notes", JSON.stringify(this.huskMigList));
             }
           }
         }
