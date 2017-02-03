@@ -56,7 +56,12 @@ export class HomePage {
         }
     ]
     });
-    promt.present();
+    if(this.huskMigList == 0){
+      this.noListErrorAlert("Du har ingen liste! Opret en liste, og derefter kan du oprette en note.");
+      }
+    else{
+      promt.present();
+      }
   }
 
   openAddListAlert() {
@@ -79,7 +84,7 @@ export class HomePage {
           handler: data => {
             if(data.title != ""){
               //Denne if tjekker om der er en huskMigList. Hvis der er ikke er, skal den pushe data til listen og derefter sætte selectedList
-              //til huskMigList[0].notes plads. Hvis else, så skal den bare pushe til data huskMigList. 
+              //til huskMigList[0].notes plads. Hvis else, så skal den bare pushe til data huskMigList.
               if(this.huskMigList == 0){
                   this.huskMigList.push({
                         name: data.title,
@@ -100,6 +105,14 @@ export class HomePage {
     });
     promt.present();
   }
+  noListErrorAlert(message){
+    let alert = this.alertCtrl.create({
+      subTitle: message,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
   mainListIndex(SelectedIndex){
     this.selectedIndex = SelectedIndex
     this.selectedList = this.huskMigList[SelectedIndex].notes
