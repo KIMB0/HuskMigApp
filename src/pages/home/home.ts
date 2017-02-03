@@ -137,6 +137,9 @@ export class HomePage {
   deleteList(index: number){
     this.huskMigList.splice(index, 1) + this.selectedList.splice(0);
     localStorage.setItem("notes", JSON.stringify(this.huskMigList));
+    if(this.huskMigList.length > 0){
+      this.selectedList = this.huskMigList[0].notes
+    }
   }
 
 //Dette er ActionSheet der bliver vist
