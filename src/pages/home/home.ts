@@ -180,6 +180,10 @@ export class HomePage {
 //Denne function gør at vi kan bruge Android native, til at sende array som SMS.
 //join-functionen gør at vi joine noget på hver string i arrayet. Her er det en ny linje.
   sendSMS(){
+    if(this.selectedList == 0 || this.huskMigList == 0){
+      this.noListErrorAlert("Der er ingen noter at sende!")
+    }
+    else{
     var options={
       replaceLineBreaks: false,
       android: {
@@ -191,6 +195,7 @@ export class HomePage {
     },()=>{
       this.noListErrorAlert("Noget gik galt. Prøv igen!");
     });
+   }
   }
 
 
