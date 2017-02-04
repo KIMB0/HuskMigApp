@@ -135,6 +135,7 @@ export class HomePage {
     this.presentDeleteToast()
   }
   deleteList(index: number){
+    this.selectedList = this.huskMigList[index].notes
     this.huskMigList.splice(index, 1) + this.selectedList.splice(0);
     localStorage.setItem("notes", JSON.stringify(this.huskMigList));
     if(this.huskMigList.length > 0){
