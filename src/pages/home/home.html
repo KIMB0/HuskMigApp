@@ -47,7 +47,8 @@
 </ion-header>
 
 <ion-content padding>
-  <h2 color=emptyList *ngIf="[selectedList] == 0">Din <b>HuskMig</b>liste er tom! Tryk på + for at tilføje en note.</h2>
+  <h2 color=emptyList *ngIf="huskMigList?.length > 0 && [selectedList] == 0">Din liste er tom! Tryk på + for at tilføje en note.</h2>
+  <h2 color=emptyList *ngIf="[huskMigList] == 0 && [selectedList] == 0">Du har ingen lister. Klik på menuen i venstre hjørne for at lave en liste.</h2>
   <ion-list>
     <ion-item-sliding *ngFor="let item of selectedList, let i = index">
       <ion-item>

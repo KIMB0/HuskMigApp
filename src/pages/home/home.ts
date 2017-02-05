@@ -24,12 +24,8 @@ export class HomePage {
   // Angiver at der skal blive vis plads 0 i arrayet når appen er entered
     this.selectedList = this.huskMigList[0].notes
     if(!this.huskMigList){
-      this.huskMigList = [        {
-                name: "",
-                notes: [
-                        {note: ""}
-                       ]
-              }];
+      this.huskMigList = [];
+      this.selectedList = [];
     }
   }
 
@@ -60,7 +56,12 @@ export class HomePage {
         }
     ]
     });
-    promt.present();
+    if(this.huskMigList == 0){
+      this.noListErrorAlert("Du har ingen liste! Opret en liste, og derefter kan du oprette en note.");
+      }
+    else{
+      promt.present();
+      }
   }
 
   openAddListAlert() {
@@ -82,11 +83,21 @@ export class HomePage {
           text: 'Tilføj',
           handler: data => {
             if(data.title != ""){
-              this.huskMigList.push({
+              //Denne if tjekker om der er en huskMigList. Hvis der er ikke er, skal den pushe data til listen og derefter sætte selectedList
+              //til huskMigList[0].notes plads. Hvis else, så skal den bare pushe til data huskMigList.
+              if(this.huskMigList == 0){
+                  this.huskMigList.push({
                         name: data.title,
-                        notes: [
-                               ]});
-                               localStorage.setItem("notes", JSON.stringify(this.huskMigList));
+                        notes: []
+                      });
+                      this.selectedList = this.huskMigList[0].notes
+                                }
+              else{this.huskMigList.push({
+                        name: data.title,
+                        notes: []
+                      });
+                                }
+            localStorage.setItem("notes", JSON.stringify(this.huskMigList));
             }
           }
         }
@@ -94,6 +105,14 @@ export class HomePage {
     });
     promt.present();
   }
+  noListErrorAlert(message){
+    let alert = this.alertCtrl.create({
+      subTitle: message,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
   mainListIndex(SelectedIndex){
     this.selectedIndex = SelectedIndex
     this.selectedList = this.huskMigList[SelectedIndex].notes
@@ -116,8 +135,12 @@ export class HomePage {
     this.presentDeleteToast()
   }
   deleteList(index: number){
+    this.selectedList = this.huskMigList[index].notes
     this.huskMigList.splice(index, 1) + this.selectedList.splice(0);
     localStorage.setItem("notes", JSON.stringify(this.huskMigList));
+    if(this.huskMigList.length > 0){
+      this.selectedList = this.huskMigList[0].notes
+    }
   }
 
 //Dette er ActionSheet der bliver vist
@@ -157,6 +180,10 @@ export class HomePage {
 //Denne function gør at vi kan bruge Android native, til at sende array som SMS.
 //join-functionen gør at vi joine noget på hver string i arrayet. Her er det en ny linje.
   sendSMS(){
+    if(this.selectedList == 0 || this.huskMigList == 0){
+      this.noListErrorAlert("Der er ingen noter at sende!")
+    }
+    else{
     var options={
       replaceLineBreaks: false,
       android: {
@@ -166,13 +193,19 @@ export class HomePage {
     SMS.send('', '- ' + this.selectedList.join(',\n- ').toString(), options)
     .then(()=> {
     },()=>{
-      alert("Noget gik galt. Prøv igen!");
+      this.noListErrorAlert("Noget gik galt. Prøv igen!");
     });
+   }
   }
 
 
   //Denne lille function, gør at man kan sorter listen efter alfabetisk orden
   sortList(){
+    if(this.selectedList == 0 || this.huskMigList == 0){
+      this.noListErrorAlert("Der er ingen noter at sortere!")
+    }
+    else{
     this.selectedList.sort()
+    }
   }
 }
